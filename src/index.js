@@ -24,7 +24,13 @@ function checksExistsUserAccount(request, response, next) {
 }
 
 function checksCreateTodosUserAvailability(request, response, next) {
-  // Complete aqui
+  const { user } = request;
+
+  if ((user.todos.length < 10 && user.pro === false) || user.pro === true) {
+    return next();
+  }
+
+  response.status(403).json({ error: "Action not permitted" });
 }
 
 function checksTodoExists(request, response, next) {
